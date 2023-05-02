@@ -1,36 +1,22 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // See https://aka.ms/new-console-template for more information
 
-using System.Collections;
-using System.Runtime.CompilerServices;
-using LibGit2Sharp;
-using RedirectRepositoryCloner;
-using static RedirectRepositoryCloner.GhostRepository;
-using static System.Net.WebRequestMethods;
-using File = System.IO.File;
-
 namespace RedirectRepositoryCloner
 {
 	public class Program
 	{
-		private const string defaultRepoUrl = "https://github.com/jishimwe/PlayMusic.git";
-		private const string defaultDestPath = @"C:\Users\test\Documents\GhostRepo\PlayMusic";
-		private const string defaultFileRelativePath = @"app/src/main/AndroidManifest.xml";
-		private const string defaultFileRealPath = @"C:\Users\test\Documents\GhostRepo\PlayMusic\app\src\main\AndroidManifest.xml";
 
 		static void Main(string[] args)
 		{
-			//HashSet<string> localFiles = new HashSet<string>();
-			Dictionary<string, string> localFiles = new Dictionary<string, string>();
 
 			if (args.Length <= 2)
 			{
-				Console.WriteLine("No arguments. Launching tests instances");
-				DefaultExec();
+				Console.WriteLine("No arguments");
+				PrintUsage();
 				return;
 			}
 
-			string repoUrl = "", destPath = "", redirUrl = "", redirPath = "", tokenPath = "";
+			string repoUrl = "", destPath = "", redirUrl = "", redirPath = "", userName = "", branchName = "master", tokenPath = "";
 
 			for (int i = 0; i < args.Length; i += 2)
 			{
@@ -53,6 +39,14 @@ namespace RedirectRepositoryCloner
 						redirPath = args[i + 1];
 						break;
 
+					case "-u":
+						userName = args[i + 1];
+						break;
+
+					case "-b": 
+						branchName = args[i + 1];
+						break;
+
 					case "-t":
 						tokenPath = args[i + 1];
 						break;
@@ -65,7 +59,7 @@ namespace RedirectRepositoryCloner
 				}
 			}
 
-			if (repoUrl == "" || destPath == "" || redirPath == "" || redirUrl == "" || tokenPath == "")
+			if (repoUrl == "" || destPath == "" || redirPath == "" || redirUrl == "" || userName == "" || tokenPath == "")
 			{
 				Console.WriteLine("Invalid arguments");
 				PrintUsage();
@@ -73,8 +67,8 @@ namespace RedirectRepositoryCloner
 				return;
 			}
 
-			GhostRepository ghostRepository = new GhostRepository(repoUrl, destPath);
-			GhostRepository redirRepository = new GhostRepository(redirUrl, redirPath, true);
+			_ = new GhostRepository(repoUrl, destPath, userName, tokenPath, branchName);
+			_ = new GhostRepository(redirUrl, redirPath, userName, tokenPath, branchName, true);
 
 			Console.WriteLine(repoUrl + " cloned into the directory " + destPath);
 			Console.WriteLine(redirUrl + " cloned into the directory " + redirPath);
@@ -87,28 +81,10 @@ namespace RedirectRepositoryCloner
 				"\n -d <Destination path>: The path where to put the cloned project repository" +
 				"\n -r <Redir repository>: The url for the redir repository" +
 				"\n -p <Redir path>      : The path where to put the cloned redir repository" +
+				"\n -u <user>			 : the git user username" +
+				"\n -b <branch>			 : the name of the branch (optional with default value being \"master\")" +
 				"\n -t <Path to token>   : The path to the file containing a git token");
 			Console.WriteLine();
-		}
-
-		private static void DefaultExec()
-		{
-
-			Console.WriteLine("Testing with arguments :");
-			Console.WriteLine("Repository: " + defaultRepoUrl);
-			Console.WriteLine("Destination Folder: " + defaultDestPath);
-
-			GhostRepository ghostRepository = new GhostRepository(defaultRepoUrl, defaultDestPath);
-			Console.WriteLine("Repository cloned");
-
-			ghostRepository.CheckoutFile(defaultFileRelativePath);
-			Console.WriteLine(defaultFileRelativePath + " checked out?");
-
-			ghostRepository.CommitToRepository(defaultFileRealPath, defaultFileRelativePath);
-			ghostRepository.PushFile();
-			Console.WriteLine(defaultFileRelativePath + " pushed out?");
-
-			ghostRepository.PrintGitStatus();
 		}
 	}
 }

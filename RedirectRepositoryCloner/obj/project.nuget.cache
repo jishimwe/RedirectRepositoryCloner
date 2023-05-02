@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "1t42599Jw7peqJAUMYzjgquGE+Bo7ik70Kl0guWRr3U59rtEWB6ExjDC6L3xXHRzlQKat0K2XGswFh0LEBOFIw==",
+  "dgSpecHash": "0VRBtRfX2JfMNLKSQ4JMsseOFdjnEUyb1xMrL3dvmAEfONC8OUKjzZ+GBPsIDMOW4UWExHPuAg3JUVQyjnAXcA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\test\\Documents\\RedirectRepositoryCloner\\RedirectRepositoryCloner\\RedirectRepositoryCloner.csproj",
+  "projectFilePath": "C:\\repositories\\RedirectRepositoryCloner\\RedirectRepositoryCloner\\RedirectRepositoryCloner.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\test\\.nuget\\packages\\libgit2sharp\\0.26.2\\libgit2sharp.0.26.2.nupkg.sha512",
-    "C:\\Users\\test\\.nuget\\packages\\libgit2sharp.nativebinaries\\2.0.306\\libgit2sharp.nativebinaries.2.0.306.nupkg.sha512"
+    "C:\\Users\\jean-paul\\.nuget\\packages\\libgit2sharp\\0.26.2\\libgit2sharp.0.26.2.nupkg.sha512",
+    "C:\\Users\\jean-paul\\.nuget\\packages\\libgit2sharp.nativebinaries\\2.0.306\\libgit2sharp.nativebinaries.2.0.306.nupkg.sha512"
   ],
   "logs": []
 }
